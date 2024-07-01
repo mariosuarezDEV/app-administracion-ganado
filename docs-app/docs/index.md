@@ -1,6 +1,6 @@
-# Aplicación Administracion de ganado
+# Administracion de ganado App
 
-Plataforma SaaS para la administración eficiente de oficinas ganaderas. GanaderiaPro ofrece una solución completa para el seguimiento de ingresos, egresos y registros de ganado, optimizando la gestión financiera y operativa del sector ganadero.
+Plataforma SaaS para la administración eficiente de oficinas ganaderas. Esta aplicación ofrece una solución completa para el seguimiento de ingresos, egresos y registros de ganado, optimizando la gestión financiera y operativa del sector ganadero.
 
 ## Características principales
 
@@ -17,3 +17,8 @@ Plataforma SaaS para la administración eficiente de oficinas ganaderas. Ganader
 - Base de datos: MongoDB
 
 Diseñado para mejorar la productividad y toma de decisiones en la industria ganadera.
+
+## Arquitectura de la App
+
+La aplicación consta de una Arquitectura SaaS (Software as a Service) la cual busca mantener la integridad y escalabilidad de los datos.
+

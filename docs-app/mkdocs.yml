@@ -1,1 +1,9 @@
 site_name: Ganado App
+nav:
+  - Principal: index.md
+  - Desarrolladores: codigo.md
+theme:
+  name: readthedocs
+  hljs_languages:
+  - javascript
+  locale: es

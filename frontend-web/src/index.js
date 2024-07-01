@@ -4,10 +4,12 @@ import ReactDOM from 'react-dom/client';
 
 import './index.css'
 
+// Componentes de la aplicación
 import {Login} from './components/Login/login.jsx'
 import {Navigation, InitPage} from './components/Administrador/index.jsx'
 import {CreateUser} from './components/Administrador/CreateUser.jsx'
 
+// Contexto de autenticación (Documentado)
 import {AuthProvider} from './Auth.jsx'
 import { Protector } from "./Protector.jsx";
 
