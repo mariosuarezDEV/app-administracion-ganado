@@ -43,7 +43,7 @@ export const Login = () => {
     const userData = {username, password};
     try {
       const response = await axios.post("http://127.0.0.1:8000/login",userData);
-      //console.log(response.data);
+      console.log(response.data);
       return response.data;
     } catch (error) {
       if (error.response) {
@@ -61,8 +61,8 @@ export const Login = () => {
     // contexto
     try{
       const user = await loginAPI(correo.value , password.value);
-      setAutenticate(user.access_token);
-      alert("Bienvenido " + user.access_token);
+      setAutenticate(user.full_name);
+      alert("Bienvenido " + user.full_name);
       navigate("/admin");
     } catch (error) {
       alert(error.message);

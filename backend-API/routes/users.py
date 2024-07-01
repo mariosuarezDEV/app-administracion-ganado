@@ -45,13 +45,14 @@ async def login(data: LoginUser):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Usuario no encontrado en la base de datos")
     # guardar los datos del usuario
     usrdat = conn.ganadodb.users.find_one({"username": data.username})
-    print(usrdat["password"])
+    #print(usrdat["password"])
     # validar que la contraseña sea coreccta
     if not verify_password(data.password, usrdat["password"]):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Contraseña incorrecta")
     return {
         'access_token': data.username,
-        'token_type': 'bearer'
+        'token_type': 'bearer',
+        'full_name': usrdat["full_name"],
     }
 
 @apiusr.get('/users')
