@@ -9,7 +9,7 @@ from functions.searchDataUsr import search_email, search_username, token_auth
 from functions.hashPassword import hash_password, verify_password
 
 # Autenticación de usuarios
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 
 apiusr = APIRouter()

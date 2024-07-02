@@ -57,3 +57,10 @@ Importamos el contexto que creamos anteriormente, esto con la finalidad de ponde
 Este componente obtiene el valor de **autenticate** desde le contexto de ***Auth*** y después valida su contenido, si el contenido es *null* entonces el cliente será redirigido a la página raiz (que muestra el login de la plataforma).
 
 En caso de que el valor de **autenticate** sea diferente a *null* entonces se renderizara el componente que este dentro de `<Outlet />`
+
+## Login.jsx
+
+El login es el componente que se muestra al entrar a la página. Este componente es un método de auntenticación el cual mantiene comunicación con el servidor mediante una API. La API regresar un token en caso de que el usuario sea correct. El **token es la llave lógica** que permite poder **acceder al panel de administrador**.
+
+![Funcionamiento de la API de login](./img/diagrama_api_login.png)
+

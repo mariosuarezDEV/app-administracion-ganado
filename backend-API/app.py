@@ -2,9 +2,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from routes.users import apiusr
+from routes.vendedores import apivend
 
 app = FastAPI()
 app.include_router(apiusr)
+app.include_router(apivend)
 
 # crear una ruta get
 @app.get('/')

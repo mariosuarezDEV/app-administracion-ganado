@@ -43,7 +43,7 @@ export function CreateUser() {
       <h1 className='text-center text-3xl font-bold text-gray-800'>
         Crear un nuevo usuario
       </h1>
-      <div className='grid grid-cols-1'>
+      <div className='grid grid-cols-1 mt-3'>
         {/* Formulario para obtener los datos del usuario */}
         <form action="" method="post" className='flex flex-col gap-4' onSubmit={(e) => {
           e.preventDefault();

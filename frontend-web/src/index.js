@@ -8,6 +8,8 @@ import './index.css'
 import {Login} from './components/Login/login.jsx'
 import {Navigation, InitPage} from './components/Administrador/index.jsx'
 import {CreateUser} from './components/Administrador/CreateUser.jsx'
+import { Administracion } from "./components/Administrador/Administracion.jsx";
+import { NuevoVendedor } from "./components/Administrador/NuevoVendedor.jsx";
 
 // Contexto de autenticación (Documentado)
 import {AuthProvider} from './Auth.jsx'
@@ -38,10 +40,26 @@ root.render(
             }
             />
             <Route
+            path="/admin/panel"
+            element={
+                <div className="">
+                <Navigation /> <Administracion/>
+                </div>
+            }
+            />
+            <Route
             path="/admin/new-usr"
             element={
                 <div className="">
                 <Navigation /> <CreateUser />
+                </div>
+            }
+            />
+            <Route
+            path="/admin/nuevo-vendedor"
+            element={
+                <div className="">
+                <Navigation /> <NuevoVendedor />
                 </div>
             }
             />

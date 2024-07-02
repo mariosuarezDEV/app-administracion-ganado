@@ -1,15 +1,13 @@
 import React, {useContext} from "react";
 import { AuthContext } from "../../Auth";
-import ReactDOM from "react-dom/client";
 import {useNavigate} from "react-router-dom";
 
 import { BiHomeAlt } from "react-icons/bi";
 import { BiHighlight } from "react-icons/bi";
-import { BiMailSend } from "react-icons/bi";
 import { BiAt } from "react-icons/bi";
 import { BiCloudDownload } from "react-icons/bi";
 import { BiNavigation } from "react-icons/bi";
-import { Link } from "react-router-dom";
+
 
 // crear un menu de navegacion
 
@@ -31,7 +29,9 @@ export const Navigation = () => {
             </button>
           </li>
           <li className="flex items-center text-white hover:bg-white hover:bg-opacity-10 mr-2 ml-2 px-5 py-2 rounded-lg">
-            <button href="" className="flex items-center">
+            <button href="" className="flex items-center" onClick={() => {
+              navigate("/admin/panel");
+            }}>
               <BiHighlight className="inline-block mr-2" /> Administración
             </button>
           </li>
