@@ -74,7 +74,7 @@ export const ComprarGanado = () => {
               )}
             </select>
             <span className="after:content-['*'] after:ml-0.5 after:text-red-500">
-              Cantidad de animales comprados
+              Cantidad de animales o kilos comprados
             </span>
             <input
               type="text"

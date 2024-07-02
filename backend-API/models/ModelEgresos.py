@@ -7,3 +7,4 @@ class CreateEgreso(BaseModel):
     descripcion: str
     cantidad: float
     fecha: datetime
+    tipo: str #Banco o Efectivo

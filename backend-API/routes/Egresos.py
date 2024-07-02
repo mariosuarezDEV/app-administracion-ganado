@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends, status
 from config.db import conn
 
-from schemas.SchemaUsers import show_user, show_users
+from schemas.SchemaEgresos import verEgreso, verEgresos
 from models.ModelEgresos import CreateEgreso
 
 apiEgresos = APIRouter()
@@ -17,6 +17,20 @@ async def create_egreso(egreso: CreateEgreso):
     # insertar el registro
     try:
         id = conn.ganadodb.egresos.insert_one(registro).inserted_id
-        return {"mensaje": "Egreso registrado correctamente"}
+        return verEgreso(registro)
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str("No se pudo registrar el egreso"))
+    
+@apiEgresos.get('/precioEgresos')
+async def sumEgresos():
+    
+    # Obtener solo los elementos de cantidad
+    egresos = conn.ganadodb.egresos.find({}, {"cantidad": 1})
+    if egresos is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str("No se encontraron egresos"))
+    # Sumar los elementos de cantidad
+    total = 0
+    for egreso in egresos:
+        total += egreso["cantidad"]
+    
+    return {"total": total}
