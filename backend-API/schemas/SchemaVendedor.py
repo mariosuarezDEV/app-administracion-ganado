@@ -7,3 +7,9 @@ def Show_Vendedor(vendedor):
 
 def Show_Vendedores(vendedores):
     return [Show_Vendedor(vendedor) for vendedor in vendedores]
+
+def nombre_vendedor(vendedor):
+    return vendedor["nombre"]
+
+def nombres_vendedores(vendedores):
+    return [nombre_vendedor(vendedor) for vendedor in vendedores]

@@ -134,13 +134,15 @@ export const InitPage = () => {
           <div className="text-center px-2 py-4 rounded-lg border shadow-md">
             {/*  Comprar ganado */}
             <h1 className="font-bold text-xl mb-2 text-center">
-              Comprar ganado
+              Comprar Ganado
             </h1>
             <p className="mb-2">
-              Registra un nuevo usuario para que pueda acceder al sistema.
+              Formulario para registrar la compra de ganado.
             </p>
             <div className="flex justify-center">
-            <button className="mt-2 mb-2 bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center hover:bg-blue-700">
+            <button className="mt-2 mb-2 bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center hover:bg-blue-700" onClick={() =>{
+              navigate("/admin/comprar-ganado");
+            }}>
                 <BiNavigation className="inline-block text-lg mr-2"/>Registrar
             </button>
             </div>
