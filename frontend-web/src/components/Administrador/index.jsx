@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { AuthContext } from "../../Auth";
 import {useNavigate} from "react-router-dom";
 
@@ -7,6 +7,8 @@ import { BiHighlight } from "react-icons/bi";
 import { BiAt } from "react-icons/bi";
 import { BiCloudDownload } from "react-icons/bi";
 import { BiNavigation } from "react-icons/bi";
+
+import axios from "axios";
 
 
 // crear un menu de navegacion
@@ -49,6 +51,52 @@ export const Navigation = () => {
 
 export const InitPage = () => {
   const navigate = useNavigate();
+
+  const [IngresosMensuales, setIngresosMensuales] = useState(null)
+  const [EgresosMensuales, setEgresosMensuales] = useState(null)
+
+  const [ingresoFomato, setIngresoFomato] = useState(null)
+  const [egresoFomato, setEgresoFomato] = useState(null)
+
+  // usaremos el useEffect para cargar los datos de la API
+  useEffect(() => {
+    const ingresosMensuales = async () => {
+      // Obtener la informacion desde la API
+      try{
+      const response = await axios.get("http://127.0.0.1:8000/ingresos/mensuales");
+      const registro = response.data;
+      const ingreso = registro["total"]
+      setIngresoFomato(ingreso.toLocaleString())
+      setIngresosMensuales(ingreso);
+      } catch (error) {
+        if (error.response) {
+          if (error.response.status === 404) {
+            throw new Error("No se encontraron datos");
+          }
+          throw new Error("Error en la respuesta del servidor");
+        }
+      }
+    }
+    const egresosMensuales = async () => {
+      try{
+      const response = await axios.get("http://127.0.0.1:8000/egresos/mensuales")
+      const registro = response.data;
+      const egreso = registro["total"]
+      setEgresoFomato(egreso.toLocaleString())
+      setEgresosMensuales(egreso);
+      }catch (error) {
+        if (error.response) {
+          if (error.response.status === 404) {
+            throw new Error("No se encontraron datos");
+          }
+          throw new Error("Error en la respuesta del servidor");
+        }
+      }
+    }
+    egresosMensuales();
+    ingresosMensuales();
+  }, []);
+
   return(
     <div className="px-4 py-3 grid grid-cols-1 gap-2">
       <h1 className="text-4xl text-center font-bold text-gray-800">
@@ -58,33 +106,33 @@ export const InitPage = () => {
       {/* Mostrar el control de ingresos de ganado */}
       <div className="grid grid-cols-1 text-center md:grid-cols-3 gap-5 mt-5">
         {/* Analiticas de gastos mensuales, ingresos mensuales e ingresos totales */ }
-        <div className="bg-white rounded-md border-2 border-green-300 shadow-md">
+        <div className="bg-white rounded-md border-2 border-green-300 shadow-md transition delay-75 ease-linear hover:bg-green-100 hover:border-green-600">
           <h1 className="mt-3">
             Ingresos mensuales
           </h1>
           <div className="mb-3">
             <h2 className="text-2xl font-bold text-green-600">
-              $0.00
+              ${ingresoFomato}
             </h2>
           </div>
         </div>
-        <div className="bg-white shadow-md rounded-md border-2 border-blue-300">
+        <div className="bg-white shadow-md rounded-md border-2 border-blue-300 transition delay-75 ease-linear hover:bg-blue-100 hover:border-blue-600">
           <h1 className="mt-3">
             Ingresos totales
           </h1>
           <div className="mb-3">
             <h2 className="text-2xl font-bold text-blue-600">
-              $0.00
+              ${(IngresosMensuales - EgresosMensuales).toLocaleString()}
             </h2>
           </div>
         </div>
-        <div className="bg-white rounded-md border-2 border-orange-300 shadow-md">
+        <div className="bg-white rounded-md border-2 border-orange-300 shadow-md transition delay-75 ease-linear hover:bg-orange-100 hover:border-orange-600">
           <h1 className="mt-3">
             Gastos mensuales
           </h1>
           <div className="mb-3">
             <h2 className="text-2xl font-bold text-orange-600">
-              $0.00
+              ${egresoFomato}
             </h2>
           </div>
         </div>
