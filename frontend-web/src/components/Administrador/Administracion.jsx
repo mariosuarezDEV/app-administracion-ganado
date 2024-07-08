@@ -17,7 +17,7 @@ export const Administracion = () => {
                 </h2>
                 <div className='flex justify-center'>
                     <button className='flex items-center justify-center bg-blue-600 text-white rounded-lg px-4 py-2 w-full transition delay-75 ease-in-out hover:bg-blue-700' onClick={() => {
-                        navigate('/admin/nuevo-vendedor');
+                        navigate('/oficina/nuevo-vendedor');
                     }}>
                         <BsPersonFillAdd className='inline-block mr-2 text-xl'/> Vendedor
                     </button>
@@ -25,7 +25,7 @@ export const Administracion = () => {
 
                 <div className='flex justify-center items-center'>
                     <button className='flex items-center justify-center bg-blue-600 text-white rounded-lg px-4 py-2 w-full transition delay-75 ease-in-out hover:bg-blue-700' onClick={() => {
-                        navigate('/admin/agregar-cliente');
+                        navigate('/oficina/agregar-cliente');
                     }}>
                         <BsPersonFillAdd className='inline-block mr-2 text-xl'/>Cliente
                     </button>
@@ -33,7 +33,7 @@ export const Administracion = () => {
 
                 <div className='flex justify-center items-center'>
                     <button className='flex items-center justify-center bg-blue-600 text-white rounded-lg px-4 py-2 w-full transition delay-75 ease-in-out hover:bg-blue-700' onClick={() => {
-                        navigate('/admin/new-usr');
+                        navigate('/oficina/new-usr');
                     }}>
                         <BsPersonFillAdd className='inline-block mr-2 text-xl'/> Usuario
                     </button>

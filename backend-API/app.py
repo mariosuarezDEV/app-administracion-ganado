@@ -7,6 +7,7 @@ from routes.Egresos import apiEgresos
 from routes.CompraGanado import apiCompraGanado
 from routes.Ingresos import apiIngresos
 from routes.Clientes import apiClientes
+from routes.VentaGanado import ventaGanado
 
 app = FastAPI()
 app.include_router(apiusr)
@@ -15,6 +16,7 @@ app.include_router(apiEgresos)
 app.include_router(apiCompraGanado)
 app.include_router(apiIngresos)
 app.include_router(apiClientes)
+app.include_router(ventaGanado)
 
 # crear una ruta get
 @app.get('/')

@@ -15,5 +15,6 @@ def login_user(data) -> dict:
     return {
         'id': str(data["_id"]),
         'name': data["name"],
-        'email': data["email"]
+        'email': data["email"],
+        'permisos': data["permisos"]
     }

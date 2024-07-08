@@ -6,13 +6,17 @@ import './index.css'
 
 // Componentes de la aplicación
 import {Login} from './components/Login/login.jsx'
-import {Navigation, InitPage} from './components/Administrador/index.jsx'
+import {Navigation} from './components/Administrador/NavegacionOficina.jsx'
+import {Index} from './components/Ganaderos/Index.jsx'
+import {InitPage} from './components/Administrador/index.jsx'
 import {CreateUser} from './components/Administrador/CreateUser.jsx'
 import { Administracion } from "./components/Administrador/Administracion.jsx";
 import { NuevoVendedor } from "./components/Administrador/NuevoVendedor.jsx";
 import { ComprarGanado } from "./components/Administrador/ComprarGanado.jsx";
 import { AddGanado } from "./components/Administrador/AddGanado.jsx";
 import { AgregarCliente } from "./components/Administrador/AgregarCliente.jsx";
+
+import {VenderGanado} from './components/Ganaderos/VenderGanado.jsx'
 
 // Contexto de autenticación (Documentado)
 import {AuthProvider} from './Auth.jsx'
@@ -35,7 +39,7 @@ root.render(
         {/* Rutas para el administrador */}
         <Route element={<Protector />}>
             <Route
-            path="/admin"
+            path="/oficina"
             element={
                 <div className="">
                 <Navigation /> <InitPage />
@@ -43,7 +47,7 @@ root.render(
             }
             />
             <Route
-            path="/admin/panel"
+            path="/oficina/panel"
             element={
                 <div className="">
                 <Navigation /> <Administracion/>
@@ -51,7 +55,7 @@ root.render(
             }
             />
             <Route
-            path="/admin/new-usr"
+            path="/oficina/new-usr"
             element={
                 <div className="">
                 <Navigation /> <CreateUser />
@@ -59,7 +63,7 @@ root.render(
             }
             />
             <Route
-            path="/admin/nuevo-vendedor"
+            path="/oficina/nuevo-vendedor"
             element={
                 <div className="">
                 <Navigation /> <NuevoVendedor />
@@ -67,7 +71,7 @@ root.render(
             }
             />
             <Route
-            path="/admin/comprar-ganado"
+            path="/oficina/comprar-ganado"
             element={
                 <div className="">
                 <Navigation /> <ComprarGanado />
@@ -75,7 +79,7 @@ root.render(
             }
             />
             <Route
-            path="/admin/organizar-ganado"
+            path="/oficina/organizar-ganado"
             element={
                 <div className="">
                 <Navigation /> <AddGanado />
@@ -83,13 +87,24 @@ root.render(
             }
             />
             <Route
-            path="/admin/agregar-cliente"
+            path="/oficina/agregar-cliente"
             element={
                 <div className="">
                 <Navigation /> <AgregarCliente />
                 </div>
             }
             />
+        </Route>
+        {/* Rutas para el ganadero */}
+        <Route element= {<Protector />}>
+            <Route
+            path="/ganadero"
+            element={
+                <div className="h-screen">
+                <Index />
+                </div>
+            }/>
+            
         </Route>
       </Routes>
       </AuthProvider>

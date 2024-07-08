@@ -370,7 +370,7 @@ export const ComprarGanado = () => {
           } else{
             if(validar_y_hacer_pago(vendedor, cantidad, fecha, tipoCobro, precioUnitario, payment, montototal, totalEfectivo, totalBanco)){
               alert("Compra realizada con exito");
-              navegar("/admin/organizar-ganado", {state: {cantidad}});
+              navegar("/oficina/organizar-ganado", {state: {cantidad}});
             }else{
               alert("Los datos parecen incorrectos, por favor revisa los campos");
             }

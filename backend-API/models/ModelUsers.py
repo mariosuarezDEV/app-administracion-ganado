@@ -8,6 +8,7 @@ class CreateUser(BaseModel):
     username: str
     email: str
     password: str
+    permisos: str # admin o user
 
 class LoginUser(BaseModel):
     username: str

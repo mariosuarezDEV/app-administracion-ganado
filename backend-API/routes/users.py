@@ -53,6 +53,7 @@ async def login(data: LoginUser):
         'access_token': data.username,
         'token_type': 'bearer',
         'full_name': usrdat["full_name"],
+        'permisos': usrdat["permisos"],
     }
 
 @apiusr.get('/users')

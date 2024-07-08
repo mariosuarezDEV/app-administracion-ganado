@@ -60,9 +60,13 @@ export const Login = () => {
     // contexto
     try{
       const user = await loginAPI(correo.value , password.value);
-      setAutenticate(user.full_name);
+      setAutenticate(user);
       alert("Bienvenido " + user.full_name);
-      navigate("/admin");
+      if (user.permisos === "administrador") {
+        navigate("/oficina");
+      }else{
+        navigate("/ganadero");
+      }
     } catch (error) {
       alert(error.message);
     }

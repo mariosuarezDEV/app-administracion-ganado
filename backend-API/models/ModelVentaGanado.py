@@ -2,10 +2,19 @@ from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
 
-class VentaGanado(BaseModel):
+# Modelo para ganaderos
+
+class VentaGanaderos(BaseModel):
     id: Optional[str] = None
-    tipo_venta: str
-    aretes_vendidos: list
-    total_venta: float
-    fecha_venta: datetime
+    cantidadVendida: float
+    tipoVenta: str
+    aretes : list
+    pesoTotal: float
+    fecha: datetime
+
+class VentaOficina(BaseModel):
+    id: Optional[str] = None
+    ingreso: float
+    fecha: datetime
     cliente: str
+
