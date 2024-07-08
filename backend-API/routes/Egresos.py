@@ -3,12 +3,12 @@ from config.db import conn
 
 from datetime import datetime
 
-from schemas.SchemaEgresos import verEgreso, verEgresos
+from schemas.SchemaEgresos import verEgreso, verEgresos, ultimo_egreso, ultimos_egresos
 from models.ModelEgresos import CreateEgreso
 
 apiEgresos = APIRouter()
 
-@apiEgresos.post('/registrarEgreso')
+@apiEgresos.post('/egresos/registrar')
 async def create_egreso(egreso: CreateEgreso):
     # creamos un diccionario para almacenar el json del modelo
     registro = dict(egreso)
@@ -24,7 +24,7 @@ async def create_egreso(egreso: CreateEgreso):
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
     
-@apiEgresos.get('/precioEgresos')
+@apiEgresos.get('/egresos/totales')
 async def sumEgresos():
     # Obtener solo los elementos de cantidad
     egresos = conn.ganadodb.egresos.find({}, {"cantidad": 1})
@@ -58,15 +58,12 @@ async def sumEgresosMes():
         total += egreso["cantidad"]
     return {"total": total, "fechaInicio": fechaInicio, "fechaFin": fechaFin} #En el front end solo obtenemos el total
 
-@apiEgresos.get('/egresos')
-async def egresos_end():
-    # Obtener solo los elementos de cantidad
-    egresos = conn.ganadodb.egresos.find({}, {"cantidad": 1})
+
+# Obtener los ultimos 3 registros de egresos
+@apiEgresos.get('/egresos/ultimos')
+async def ultimosEgresos():
+    egresos = conn.ganadodb.egresos.find().sort("_id", -1).limit(3)
     if egresos is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str("No se encontraron egresos"))
     
-    # Sumar los elementos encontrados
-    for egreso in egresos:
-        total += egreso["cantidad"]
-    # Ya tenemos almacenado el total
-    return {"total": total} # En el front end solo obtenemos el total
+    return ultimos_egresos(egresos)

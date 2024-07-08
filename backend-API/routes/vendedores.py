@@ -10,7 +10,7 @@ from models.ModelVendedores import Vendedor
 
 apivend = APIRouter()
 
-@apivend.post('/registrar-vendedor')
+@apivend.post('/vendedores/registrar')
 async def registrar_vendedor(vendedor: Vendedor):
     vendedor = dict(vendedor)
     # Eliminar el id para crear uno nuevo interno

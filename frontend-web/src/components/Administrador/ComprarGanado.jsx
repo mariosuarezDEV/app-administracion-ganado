@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 async function realizar_compra(vendedor, cantidad, fecha, tipoCobro, precioUnitario, payment){
   try{
-    const response = await axios.post("http://127.0.0.1:8000/registrarCompraGanado",{
+    const response = await axios.post("http://127.0.0.1:8000/comprar/ganado",{
       proveedor: vendedor,
       cantidadAK: cantidad,
       fecha_compra: fecha,
@@ -27,7 +27,7 @@ async function realizar_compra(vendedor, cantidad, fecha, tipoCobro, precioUnita
 
 async function realizar_egreso(vendedor, fecha, payment, montoFinal){
   try{
-    const response = await axios.post("http://127.0.0.1:8000/registrarEgreso",{
+    const response = await axios.post("http://127.0.0.1:8000/egresos/registrar",{
       descripcion: "Compra de ganado con el proveedor " + vendedor,
       cantidad: montoFinal,
       fecha: fecha,
@@ -118,7 +118,6 @@ export const ComprarGanado = () => {
     ObtenerProveedores();
   }, []);
 
-  
   return (
     <>
       <h1 className="text-3xl font-bold text-gray-800 text-center mb-4 mt-2">
@@ -371,7 +370,7 @@ export const ComprarGanado = () => {
           } else{
             if(validar_y_hacer_pago(vendedor, cantidad, fecha, tipoCobro, precioUnitario, payment, montototal, totalEfectivo, totalBanco)){
               alert("Compra realizada con exito");
-              navegar("/admin");
+              navegar("/admin/organizar-ganado", {state: {cantidad}});
             }else{
               alert("Los datos parecen incorrectos, por favor revisa los campos");
             }

@@ -6,7 +6,7 @@ import {estiloInput} from "../Login/login.jsx";
 async function RegistrarVendedor(nombre, psg) {
     const data = {nombre, psg};
     try {
-        const response = await axios.post("http://127.0.0.1:8000/registrar-vendedor", data);
+        const response = await axios.post("http://127.0.0.1:8000/vendedores/registrar", data);
         return response.data;
     } catch (error) {
         if (error.response) {

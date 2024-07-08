@@ -6,7 +6,7 @@ from models.ModelCompraGanado import CreateCompraGanado
 
 apiCompraGanado = APIRouter()
 
-@apiCompraGanado.post('/registrarCompraGanado')
+@apiCompraGanado.post('/comprar/ganado')
 async def create_compra_ganado(compra_ganado: CreateCompraGanado):
     registro = dict(compra_ganado)
     registro["fecha_compra"] = registro["fecha_compra"].strftime("%Y-%m-%d")

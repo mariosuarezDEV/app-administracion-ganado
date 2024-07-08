@@ -9,3 +9,13 @@ def verEgreso(data):
 
 def verEgresos(data):
     return [verEgreso(item) for item in data]
+
+def ultimo_egreso(data):
+    return{
+        "descripcion":data["descripcion"],
+        "fecha":data["fecha"],
+        "cantidad": data["cantidad"]
+    }
+    
+def ultimos_egresos(data):
+    return [ultimo_egreso(item) for item in data]

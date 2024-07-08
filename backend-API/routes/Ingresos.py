@@ -3,12 +3,12 @@ from config.db import conn
 
 from datetime import datetime
 
-from schemas.SchemaIngresos import ver_ingreso
+from schemas.SchemaIngresos import ver_ingreso, ultimo_ingreso, ultimos_ingresos
 from models.ModelIngresos import CreateIngreso
 
 apiIngresos = APIRouter()
 
-@apiIngresos.post('/registrarIngreso')
+@apiIngresos.post('/ingresos/registrar')
 async def registrar_ingreso(ingreso: CreateIngreso):
     registro = dict(ingreso)
     # Eliminar el id 
@@ -40,7 +40,7 @@ async def sumIngresosMes():
     return {"total": total, "fechaInicio": fechaInicio, "fechaFin": fechaFin}
 
 # Endpoint para obtener los ingresos totales
-@apiIngresos.get('/ingresos')
+@apiIngresos.get('/ingresos/totales')
 async def ingresos_end():
     # Obtener solo los elementos de cantidad
     ingresos = conn.ganadodb.ingresos.find({}, {"cantidad": 1})
@@ -54,3 +54,12 @@ async def ingresos_end():
     # Ya tenemos almacenado el total
     
     return {"total": total} # Retornamos el total
+
+# Obtener los ultimos 3 registros de ingresos
+@apiIngresos.get('/ingresos/ultimos')
+async def ultimoIngreso():
+    egresos = conn.ganadodb.ingresos.find().sort("_id", -1).limit(3)
+    if egresos is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str("No se encontraron ingresos"))
+    
+    return ultimos_ingresos(egresos)

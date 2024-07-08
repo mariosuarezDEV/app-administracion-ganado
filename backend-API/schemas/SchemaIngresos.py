@@ -6,3 +6,13 @@ def ver_ingreso(data):
         "fecha": data["fecha"],
         "tipo": data["tipo"]
     }
+    
+def ultimo_ingreso(data):
+    return{
+        "descripcion":data["descripcion"],
+        "fecha":data["fecha"],
+        "cantidad": data["cantidad"]
+    }
+    
+def ultimos_ingresos(data):
+    return [ultimo_ingreso(item) for item in data]

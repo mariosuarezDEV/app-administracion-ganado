@@ -11,6 +11,8 @@ import {CreateUser} from './components/Administrador/CreateUser.jsx'
 import { Administracion } from "./components/Administrador/Administracion.jsx";
 import { NuevoVendedor } from "./components/Administrador/NuevoVendedor.jsx";
 import { ComprarGanado } from "./components/Administrador/ComprarGanado.jsx";
+import { AddGanado } from "./components/Administrador/AddGanado.jsx";
+import { AgregarCliente } from "./components/Administrador/AgregarCliente.jsx";
 
 // Contexto de autenticación (Documentado)
 import {AuthProvider} from './Auth.jsx'
@@ -72,9 +74,24 @@ root.render(
                 </div>
             }
             />
+            <Route
+            path="/admin/organizar-ganado"
+            element={
+                <div className="">
+                <Navigation /> <AddGanado />
+                </div>
+            }
+            />
+            <Route
+            path="/admin/agregar-cliente"
+            element={
+                <div className="">
+                <Navigation /> <AgregarCliente />
+                </div>
+            }
+            />
         </Route>
       </Routes>
       </AuthProvider>
     </BrowserRouter>
-
 );

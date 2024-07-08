@@ -24,7 +24,9 @@ export const Administracion = () => {
                 </div>
 
                 <div className='flex justify-center items-center'>
-                    <button className='flex items-center justify-center bg-blue-600 text-white rounded-lg px-4 py-2 w-full transition delay-75 ease-in-out hover:bg-blue-700'>
+                    <button className='flex items-center justify-center bg-blue-600 text-white rounded-lg px-4 py-2 w-full transition delay-75 ease-in-out hover:bg-blue-700' onClick={() => {
+                        navigate('/admin/agregar-cliente');
+                    }}>
                         <BsPersonFillAdd className='inline-block mr-2 text-xl'/>Cliente
                     </button>
                 </div>
