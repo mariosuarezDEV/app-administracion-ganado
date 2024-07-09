@@ -1,16 +1,19 @@
 import React, { useState, useContext, useEffec, useEffect } from "react";
 import { BsPersonFillAdd } from "react-icons/bs";
 import axios from "axios";
+import { AuthContext } from "../../Auth";
 
-import { estiloInput } from "../Login/login";
+import { EstiloInput } from "../design/BorderInputs";
 
 export const AgregarCliente = () => {
   const [nombreCliente, setNombreCliente] = useState(null);
   const [clienteRFC, setClienteRFC] = useState(null);
   const [clientePSG, setClientePSG] = useState(null);
 
-  const apiURL = "http://127.0.0.1:8000/clientes/registrar";
-  const apiURL2 = "http://127.0.0.1:8000/clientes/nombres";
+  const url = useContext(AuthContext).url;
+
+  const apiURL = url+"clientes/registrar";
+  const apiURL2 = url+"clientes/nombres";
 
   const registrarcliente = async () => {
     try {
@@ -77,7 +80,7 @@ export const AgregarCliente = () => {
             className="bg-gray-100 px-4 py-2 rounded-lg border-2 mt-1 mb-4 focus:outline-none"
             placeholder="Juan José Portillo Flórez"
             onChange={(e) => {
-              estiloInput(e.target);
+              EstiloInput(e.target);
               if (e.target.value !== "") {
                 setNombreCliente(e.target.value);
               } // Validar que el campo no esté vacío al momento de enviar el formulario
@@ -93,7 +96,7 @@ export const AgregarCliente = () => {
             className="bg-gray-100 px-4 py-2 rounded-lg border-2 mt-1 mb-4 focus:outline-none"
             placeholder="2879854030"
             onChange={(e) => {
-              estiloInput(e.target);
+              EstiloInput(e.target);
               if (e.target.value !== "") {
                 setClientePSG(e.target.value);
               } // Validar que el campo no esté vacío al momento de enviar el formulario
@@ -109,7 +112,7 @@ export const AgregarCliente = () => {
             className="bg-gray-100 px-4 py-2 rounded-lg border-2 mt-1 mb-4 focus:outline-none"
             placeholder="94878760z"
             onChange={(e) => {
-              estiloInput(e.target);
+              EstiloInput(e.target);
               if (e.target.value !== "") {
                 setClienteRFC(e.target.value);
               } // Validar que el campo no esté vacío al momento de enviar el formulario
@@ -146,13 +149,13 @@ export const AgregarCliente = () => {
                 } else {
                   alert("Llene todos los campos");
                   if (document.getElementById("txtNombre").value === "") {
-                    estiloInput(document.getElementById("txtNombre"));
+                    EstiloInput(document.getElementById("txtNombre"));
                   }
                   if (document.getElementById("txtPSG").value === "") {
-                    estiloInput(document.getElementById("txtPSG"));
+                    EstiloInput(document.getElementById("txtPSG"));
                   }
                   if (document.getElementById("txtRFC").value === "") {
-                    estiloInput(document.getElementById("txtRFC"));
+                    EstiloInput(document.getElementById("txtRFC"));
                   }
                 }
               }}

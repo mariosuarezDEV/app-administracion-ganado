@@ -13,3 +13,6 @@ class CreateUser(BaseModel):
 class LoginUser(BaseModel):
     username: str
     password: str
+
+class Correo(BaseModel):
+    email: str

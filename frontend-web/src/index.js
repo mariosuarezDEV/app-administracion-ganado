@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css'
 
 // Componentes de la aplicación
-import {Login} from './components/Login/login.jsx'
+import {Login} from './components/Login.jsx'
 import {Navigation} from './components/Administrador/NavegacionOficina.jsx'
 import {Index} from './components/Ganaderos/Index.jsx'
 import {InitPage} from './components/Administrador/index.jsx'

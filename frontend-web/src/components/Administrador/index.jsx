@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { BiCloudDownload } from "react-icons/bi";
 import { BiNavigation } from "react-icons/bi";
 import axios from "axios";
+
+import { AuthContext } from "../../Auth";
 
 
 export const InitPage = () => {
@@ -17,13 +19,15 @@ export const InitPage = () => {
   const [ultimosEgresos, setUltimosEgresos] = useState([]);
   const [ultimosIngresos, setUltimosIngresos] = useState([]);
 
+  const url = useContext(AuthContext).url;
+
   // usaremos el useEffect para cargar los datos de la API
   useEffect(() => {
     const ingresosMensuales = async () => {
       // Obtener la informacion desde la API
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8000/ingresos/mensuales"
+          url+"ingresos/mensuales"
         );
         const registro = response.data;
         const ingreso = registro["total"];
@@ -41,7 +45,7 @@ export const InitPage = () => {
     const egresosMensuales = async () => {
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8000/egresos/mensuales"
+          url+"egresos/mensuales"
         );
         const registro = response.data;
         const egreso = registro["total"];
@@ -59,12 +63,12 @@ export const InitPage = () => {
     const ultimosMovimientos = async () => {
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8000/egresos/ultimos"
+          url+"egresos/ultimos"
         );
         setUltimosEgresos(response.data);
         try {
           const response = await axios.get(
-            "http://127.0.0.1:8000/ingresos/ultimos"
+            url+"ingresos/ultimos"
           );
           setUltimosIngresos(response.data);
         } catch (error) {

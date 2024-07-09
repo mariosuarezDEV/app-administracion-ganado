@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends, status
 from config.db import conn
 
 from schemas.SchemaUsers import show_user, show_users
-from models.ModelUsers import CreateUser, LoginUser
+from models.ModelUsers import CreateUser, LoginUser, Correo
 
 # Mis funciones
 from functions.searchDataUsr import search_email, search_username, token_auth
@@ -59,3 +59,10 @@ async def login(data: LoginUser):
 @apiusr.get('/users')
 async def find_all_users(user: CreateUser = Depends(token_auth)):
     return show_users(conn.ganadodb.users.find())
+
+@apiusr.post('/usuario/correo')
+async def find_user_by_email(correo: Correo):
+    respuesta = conn.ganadodb.users.find_one({"email": correo.email})
+    if respuesta:
+        return show_user(respuesta)
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Usuario no encontrado")

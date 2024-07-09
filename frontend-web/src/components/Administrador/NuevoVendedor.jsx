@@ -1,27 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { BsPersonFillAdd } from "react-icons/bs";
 import axios from 'axios';
-import {estiloInput} from "../Login/login.jsx";
+import { EstiloInput } from "../design/BorderInputs";
 
-async function RegistrarVendedor(nombre, psg) {
-    const data = {nombre, psg};
-    try {
-        const response = await axios.post("http://127.0.0.1:8000/vendedores/registrar", data);
-        return response.data;
-    } catch (error) {
-        if (error.response) {
-            if (error.response.status === 306) {
-                throw new Error("El vendedor ya esta registrado");
-            }
-            if (error.response.status === 400) {
-                throw new Error("No fue posible registrar el vendedor");
-            }
-            throw new Error("Error en el servidor");
-        }
-    }
-}
+import { AuthContext } from '../../Auth';
 
 export const NuevoVendedor = () => {
+    const url = useContext(AuthContext).url;
+    async function RegistrarVendedor(nombre, psg) {
+        const data = {nombre, psg};
+        try {
+            const response = await axios.post(url+"vendedores/registrar", data);
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                if (error.response.status === 306) {
+                    throw new Error("El vendedor ya esta registrado");
+                }
+                if (error.response.status === 400) {
+                    throw new Error("No fue posible registrar el vendedor");
+                }
+                throw new Error("Error en el servidor");
+            }
+        }
+    }
+
     const  [nombre, setNombre] = useState("");
     const [psg, setPsg] = useState("");
 
@@ -58,9 +61,9 @@ export const NuevoVendedor = () => {
                         Nombre del vendedor
                     </span>
                     <input type="text" name="" id="txtNombre" placeholder='Vitaliano Quintana Colunga' className='bg-gray-100 px-4 py-2 rounded-lg border-2 mt-1 mb-4 focus:outline-none' onChange={(e) => {
-                        estiloInput(e.target);
+                        EstiloInput(e.target);
                         try{
-                            estiloInput(e.target);
+                            EstiloInput(e.target);
                             setNombre(e.target.value);
                         } catch (error) {
                             console.log(error);
@@ -71,7 +74,7 @@ export const NuevoVendedor = () => {
                     </span>
                     <input type="text" name="" id="txtPsg" placeholder='778 223 991' className='bg-gray-100 px-4 py-2 rounded-lg border-2 mt-1 mb-4 focus:outline-none' onChange={(e) => {
                         try{
-                            estiloInput(e.target);
+                            EstiloInput(e.target);
                             setPsg(e.target.value);
                         } catch (error) {
                             console.log(error);

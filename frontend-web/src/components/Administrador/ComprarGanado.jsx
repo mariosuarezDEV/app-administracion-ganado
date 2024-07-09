@@ -1,89 +1,92 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { FaCartShopping } from "react-icons/fa6";
 
 import { useNavigate } from "react-router-dom";
 
-async function realizar_compra(vendedor, cantidad, fecha, tipoCobro, precioUnitario, payment){
-  try{
-    const response = await axios.post("http://127.0.0.1:8000/comprar/ganado",{
-      proveedor: vendedor,
-      cantidadAK: cantidad,
-      fecha_compra: fecha,
-      tipo_cobro: tipoCobro,
-      precion_unitario: precioUnitario,
-      forma_pago: payment
-    })
-    return response.data;
-  } catch(error){
-    if (error.response) {
-      if (error.response.status === 400) {
-        throw new Error("No se pudo realizar la compra");
-      }
-      throw new Error("Error en el servidor");
-    }
-  }
-}
-
-async function realizar_egreso(vendedor, fecha, payment, montoFinal){
-  try{
-    const response = await axios.post("http://127.0.0.1:8000/egresos/registrar",{
-      descripcion: "Compra de ganado con el proveedor " + vendedor,
-      cantidad: montoFinal,
-      fecha: fecha,
-      tipo: payment
-    })
-    return response.data;
-  } catch (error){
-    if (error.response){
-      if (error.response.status === 400){
-        throw new Error("No se pudo realizar el egreso");
-      }
-      throw new Error("Error en el servidor");
-    }
-  }
-}
-
-const validar_y_hacer_pago = (proveedor, cantidadAK, fecha_compra, tipo_cobro, precio_cu, forma_pago, total, efectivo,banco ) => {
-  const validar_monto = (recibido, total) =>{
-      if (recibido === total){
-        return true; // el monto no es igual al esperado
-      }
-  }
-  switch (forma_pago) {
-    case "Efectivo":
-      if (validar_monto(efectivo, total)){
-
-        realizar_egreso(proveedor, fecha_compra, forma_pago, efectivo);
-
-        realizar_compra(proveedor, cantidadAK, fecha_compra, tipo_cobro, precio_cu, forma_pago);
-        return true;
-      }
-      break;
-    case "Banco":
-      if (validar_monto(banco, total)){
-        realizar_egreso(proveedor, fecha_compra, forma_pago, banco);
-
-        realizar_compra(proveedor, cantidadAK, fecha_compra, tipo_cobro, precio_cu, forma_pago);
-        return true;
-      }
-      break;
-    case "Ambos":
-      if (validar_monto(efectivo+banco, total)){
-        realizar_egreso(proveedor, fecha_compra, "Efectivo", efectivo);
-        realizar_egreso(proveedor, fecha_compra, "Banco", banco);
-
-        realizar_compra(proveedor, cantidadAK, fecha_compra, tipo_cobro, precio_cu, forma_pago);
-        return true;
-      }
-      break;
-    default:
-      return false;
-  }
-}
-
+import { AuthContext } from "../../Auth";
 
 export const ComprarGanado = () => {
+  const url = useContext(AuthContext).url;
+
+  async function realizar_compra(vendedor, cantidad, fecha, tipoCobro, precioUnitario, payment){
+    try{
+      const response = await axios.post(url+"comprar/ganado",{
+        proveedor: vendedor,
+        cantidadAK: cantidad,
+        fecha_compra: fecha,
+        tipo_cobro: tipoCobro,
+        precion_unitario: precioUnitario,
+        forma_pago: payment
+      })
+      return response.data;
+    } catch(error){
+      if (error.response) {
+        if (error.response.status === 400) {
+          throw new Error("No se pudo realizar la compra");
+        }
+        throw new Error("Error en el servidor");
+      }
+    }
+  }
+  
+  async function realizar_egreso(vendedor, fecha, payment, montoFinal){
+    try{
+      const response = await axios.post(url+"egresos/registrar",{
+        descripcion: "Compra de ganado con el proveedor " + vendedor,
+        cantidad: montoFinal,
+        fecha: fecha,
+        tipo: payment
+      })
+      return response.data;
+    } catch (error){
+      if (error.response){
+        if (error.response.status === 400){
+          throw new Error("No se pudo realizar el egreso");
+        }
+        throw new Error("Error en el servidor");
+      }
+    }
+  }
+  
+  const validar_y_hacer_pago = (proveedor, cantidadAK, fecha_compra, tipo_cobro, precio_cu, forma_pago, total, efectivo,banco ) => {
+    const validar_monto = (recibido, total) =>{
+        if (recibido === total){
+          return true; // el monto no es igual al esperado
+        }
+    }
+    switch (forma_pago) {
+      case "Efectivo":
+        if (validar_monto(efectivo, total)){
+  
+          realizar_egreso(proveedor, fecha_compra, forma_pago, efectivo);
+  
+          realizar_compra(proveedor, cantidadAK, fecha_compra, tipo_cobro, precio_cu, forma_pago);
+          return true;
+        }
+        break;
+      case "Banco":
+        if (validar_monto(banco, total)){
+          realizar_egreso(proveedor, fecha_compra, forma_pago, banco);
+  
+          realizar_compra(proveedor, cantidadAK, fecha_compra, tipo_cobro, precio_cu, forma_pago);
+          return true;
+        }
+        break;
+      case "Ambos":
+        if (validar_monto(efectivo+banco, total)){
+          realizar_egreso(proveedor, fecha_compra, "Efectivo", efectivo);
+          realizar_egreso(proveedor, fecha_compra, "Banco", banco);
+  
+          realizar_compra(proveedor, cantidadAK, fecha_compra, tipo_cobro, precio_cu, forma_pago);
+          return true;
+        }
+        break;
+      default:
+        return false;
+    }
+  }
+  
   const navegar = useNavigate();
   const [nombreProvedores, setNombreProvedores] = useState([]);
 
@@ -104,7 +107,7 @@ export const ComprarGanado = () => {
   useEffect(() => {
     const ObtenerProveedores = async () =>{
       try {
-        const response = await axios.get("http://127.0.0.1:8000/vendedores/nombres");
+        const response = await axios.get(url+"vendedores/nombres");
         setNombreProvedores(response.data);
       } catch (error) {
         if (error.response) {
