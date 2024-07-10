@@ -31,3 +31,10 @@ async def vender_ganado_oficina(venta: VentaOficina):
         return ventaOficina(venta)
     except:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Venta no creada")
+    
+
+# 1. Seleccionar si se pesa por grupo o individual
+# 2. Seleccionar los aretes de los animales (hacer una busqueda de los aretes para obtener su infomacion y mostrarla)
+# 3. Poner el peso de los animales (si es en grupo se pone el peso total e internamente se pone el peso promedio de cada animal y si es indivual se le pone el peso al animal)
+# 4. Si el peso del animal es igual o mayor a 320 kilos entonces se puede agregar la etiqueta de vender y se pone en true
+# 5. Mandar una notificación de los animales listos para la venta a la oficina

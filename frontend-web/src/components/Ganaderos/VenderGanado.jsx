@@ -8,7 +8,7 @@ export const VenderGanado = () => {
     const { autenticate } = useContext(AuthContext);
     return (
         <div>
-            <h1>Vender Ganado {autenticate.permisos}</h1>
+            <h1>Vender Ganado</h1>
         </div>
     );
 }

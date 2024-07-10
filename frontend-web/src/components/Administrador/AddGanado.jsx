@@ -8,6 +8,9 @@ export const AddGanado = () => {
     // Se debe subir una foto a plataforma y desde ahi obtener los aretes de cada animal
     return (
         <>
+        <div>
+            
+        </div>
         </>
     );
 }

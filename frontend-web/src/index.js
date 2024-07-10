@@ -4,10 +4,9 @@ import ReactDOM from 'react-dom/client';
 
 import './index.css'
 
-// Componentes de la aplicación
+// Vista Oficina
 import {Login} from './components/Login.jsx'
 import {Navigation} from './components/Administrador/NavegacionOficina.jsx'
-import {Index} from './components/Ganaderos/Index.jsx'
 import {InitPage} from './components/Administrador/index.jsx'
 import {CreateUser} from './components/Administrador/CreateUser.jsx'
 import { Administracion } from "./components/Administrador/Administracion.jsx";
@@ -16,7 +15,11 @@ import { ComprarGanado } from "./components/Administrador/ComprarGanado.jsx";
 import { AddGanado } from "./components/Administrador/AddGanado.jsx";
 import { AgregarCliente } from "./components/Administrador/AgregarCliente.jsx";
 
+// Vista Ganadero
+import {Index} from './components/Ganaderos/Index.jsx'
 import {VenderGanado} from './components/Ganaderos/VenderGanado.jsx'
+import {RecibirGanado} from './components/Ganaderos/RecibirGanado.jsx'
+import { AdministrarGanado } from './components/Ganaderos/AdministrarGanado.jsx';
 
 // Contexto de autenticación (Documentado)
 import {AuthProvider} from './Auth.jsx'
@@ -104,7 +107,20 @@ root.render(
                 <Index />
                 </div>
             }/>
-            
+            <Route
+            path="/ganadero/pesar/ganado"
+            element={
+                <div className="h-screen">
+                <VenderGanado />
+                </div>
+            }/>
+            <Route
+            path="/ganadero/administrar/ganado"
+            element={
+                <div className="h-screen">
+                <AdministrarGanado />
+                </div>
+            }/>
         </Route>
       </Routes>
       </AuthProvider>
